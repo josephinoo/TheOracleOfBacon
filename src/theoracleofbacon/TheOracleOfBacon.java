@@ -5,7 +5,10 @@
  */
 package theoracleofbacon;
 
+import java.util.LinkedList;
+
 import util.GraphLA;
+import util.Vertex;
 
 /**
  *
@@ -18,6 +21,14 @@ public class TheOracleOfBacon {
      */
     public static void main(String[] args) {
        GraphLA<String> bacon= NumberBacon.graphBacon();
+       bacon.caminoMinimo("Vin Diesel","Matt Damon");
+      
+        //bacon.getVertexes().stream().forEach(e->System.out.println(e.getData()));
+       
+       
+
+       
     }
+    
     
 }

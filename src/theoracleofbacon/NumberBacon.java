@@ -39,9 +39,13 @@ public class NumberBacon {
                         graphBacon.addVertex(actor);
                     }
                 }
-               for (int i=1;i<actores.length;i++){
-                   graphBacon.addEdge(actores[0], actores[i], 1, pelicula);
-               }
+                 int changeActor=1;
+                for(int i=1;i<actores.length;i++){
+                    graphBacon.addEdge(actores[i-1], actores[i], 1, pelicula);
+                     if(i==actores.length){i=changeActor+1;
+                       }
+    }
+         
             }
         }
         catch(Exception e){
@@ -51,5 +55,6 @@ public class NumberBacon {
         
      
 }
+   
     
 }
