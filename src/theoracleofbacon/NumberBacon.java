@@ -17,44 +17,42 @@ import util.GraphLA;
  * @author soyjosephavila
  */
 public class NumberBacon {
-    
-    
-    public static GraphLA<String> graphBacon(){
-        GraphLA<String> graphBacon= new GraphLA<>(false);
+
+    public static GraphLA<String> graphBacon() {
+        GraphLA<String> graphBacon = new GraphLA<>(false);
         FileInputStream inputStream = null;
         try {
             inputStream = new FileInputStream(new File("src/files/movies.csv"));
             Scanner sc = new Scanner(inputStream, "UTF-8");
             while (sc.hasNextLine()) {
                 String line = sc.nextLine();
-                String[] cadena=line.split(",");
-                String pelicula=cadena[0];
-                String[] actores=cadena[1].split("-");
-                for(String actor:actores){
-   
-                    if(actor.substring(0, 1).equals(" ")){
-                        graphBacon.addVertex(actor.substring(1));  
-                    }
-                    else{
+                String[] cadena = line.split(",");
+                String pelicula = cadena[0];
+                String[] actores = cadena[1].split("-");
+                for (String actor : actores) {
+
+                    if (actor.substring(0, 1).equals(" ")) {
+                        graphBacon.addVertex(actor.substring(1));
+                    } else {
                         graphBacon.addVertex(actor);
                     }
                 }
-                 int changeActor=1;
-                for(int i=1;i<actores.length;i++){
-                    graphBacon.addEdge(actores[i-1], actores[i], 1, pelicula);
-                     if(i==actores.length){i=changeActor+1;
-                       }
-    }
-         
+                int values = 0;
+                int sig = 1;
+                while (values < actores.length) {
+                    for (int i = sig; i < actores.length; i++) {
+                        graphBacon.addEdge(actores[values], actores[i], 1, pelicula);
+                    }
+                    values += 1;
+                    sig += 1;
+                }
+
             }
-        }
-        catch(Exception e){
+        } catch (Exception e) {
             System.out.println(e.getMessage());
         }
-         return graphBacon;
-        
-     
-}
-   
-    
+        return graphBacon;
+
+    }
+
 }

@@ -21,7 +21,7 @@ public class TheOracleOfBacon {
      */
     public static void main(String[] args) {
        GraphLA<String> bacon= NumberBacon.graphBacon();
-       bacon.caminoMinimo("Vin Diesel","Matt Damon");
+        System.out.println(bacon);
       
         //bacon.getVertexes().stream().forEach(e->System.out.println(e.getData()));
        
