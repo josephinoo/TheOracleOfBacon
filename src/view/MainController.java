@@ -6,8 +6,14 @@
 package view;
 
 import java.net.URL;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.ResourceBundle;
+import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.TextField;
+import theoracleofbacon.NumberBacon;
+import util.Vertex;
 
 /**
  * FXML Controller class
@@ -16,12 +22,22 @@ import javafx.fxml.Initializable;
  */
 public class MainController implements Initializable {
 
-    /**
-     * Initializes the controller class.
-     */
+    @FXML
+    private TextField person1;
+    @FXML
+    private TextField person2;
+
+  
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+       
+     
     }    
-    
+    public List<String> actores(){
+    LinkedList<String> actores= new LinkedList<>();  
+    for(Vertex<String> actor:NumberBacon.graphBacon().getVertexes()){
+        actores.add(actor.getData());
+    }
+    return actores;
+    }
 }

@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -8,22 +10,21 @@
 
 <AnchorPane id="AnchorPane" prefHeight="600.0" prefWidth="1300.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.MainController">
    <children>
-      <Pane layoutX="36.0" layoutY="195.0" prefHeight="396.0" prefWidth="368.0" style="-fx-background-color: #353541;" />
-      <Pane layoutX="458.0" layoutY="198.0" prefHeight="396.0" prefWidth="368.0" style="-fx-background-color: #353541;" />
+      <Pane layoutX="25.0" layoutY="196.0" prefHeight="396.0" prefWidth="368.0" style="-fx-background-color: #353541;" />
+      <Pane layoutX="452.0" layoutY="196.0" prefHeight="396.0" prefWidth="368.0" style="-fx-background-color: #353541;" />
       <Pane layoutX="894.0" layoutY="196.0" prefHeight="396.0" prefWidth="368.0" style="-fx-background-color: #353541;" />
-      <Pane layoutX="-4.0" layoutY="-10.0" prefHeight="156.0" prefWidth="1306.0" style="-fx-background-color: #353541;">
+      <Pane layoutX="-4.0" layoutY="-11.0" prefHeight="156.0" prefWidth="1306.0" style="-fx-background-color: #353541;">
          <children>
-            <ImageView fitHeight="128.0" fitWidth="128.0" layoutX="24.0" layoutY="12.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../../images/apollo1.jpg" />
-               </image>
-            </ImageView>
-            <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="1162.0" layoutY="1.0" pickOnBounds="true" preserveRatio="true">
+            <Label layoutX="598.0" layoutY="52.0" scaleX="4.0" scaleY="4.0" text="The Oracle of Bacon" textFill="WHITE" />
+            <Button layoutX="881.0" layoutY="111.0" mnemonicParsing="false" text="Find" />
+            <Label layoutX="633.0" layoutY="118.0" scaleX="2.4" scaleY="2.4" text="to" textFill="WHITE" />
+            <ImageView fitHeight="135.0" fitWidth="126.0" layoutX="14.0" layoutY="11.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../../images/Kevin_Bacon.jpg" />
                </image>
             </ImageView>
-            <Label layoutX="553.0" layoutY="52.0" scaleX="4.0" scaleY="4.0" text="The Oracle of Bacon" textFill="WHITE" />
+            <TextField fx:id="person1" layoutX="429.0" layoutY="114.0" style="-fx-background-color: #FFFFFF;" />
+            <TextField fx:id="person2" layoutX="696.0" layoutY="114.0" style="-fx-background-color: #FFFFFF;" />
          </children>
       </Pane>
    </children>
