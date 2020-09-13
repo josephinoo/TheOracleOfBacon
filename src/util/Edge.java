@@ -95,6 +95,13 @@ public class Edge <E>{
         final Edge<E> other = (Edge<E>) obj;
         return Objects.equals(this.vo, other.vo) && Objects.equals(this.vd, other.vd);
     }
+
+    @Override
+    public String toString() {
+        return "Edge{" + "peso=" + peso + ", vo=" + vo + ", vd=" + vd + ", movie=" + movie + '}';
+    }
+    
+    
     
     
     

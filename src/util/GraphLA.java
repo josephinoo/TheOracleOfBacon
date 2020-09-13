@@ -152,8 +152,8 @@ public class GraphLA <E>{
         result.append("]");
         return result.toString();
     }
-     public List<E> bfs(E data){
-        LinkedList<E> result = new LinkedList<>();
+     public List<Edge<E>> bfs(E data){
+        List<Edge<E>>result = new LinkedList<>();
         if(data ==null) return result;
         Vertex<E> v = searchVertex(data);
         if(v==null) return result;
@@ -163,7 +163,7 @@ public class GraphLA <E>{
         cola.offer(v);
         while(!cola.isEmpty()){
             v=cola.poll();
-            result.add(v.getData());
+            result.addAll(v.getEdges());
             for(Edge<E> e: v.getEdges()){
                 if(!e.getVDestino().isVisited()){
                     e.getVDestino().setVisited(true);
@@ -182,8 +182,8 @@ public class GraphLA <E>{
         }
     }
     
-    public List<E> dfs(E data){
-        LinkedList<E> result = new LinkedList<>();
+    public List<Edge<E>> dfs(E data){
+        List<Edge<E>> result = new LinkedList<>();
         if(data ==null) return result;
         Vertex<E> v = searchVertex(data);
         if(v==null) return result;
@@ -194,7 +194,7 @@ public class GraphLA <E>{
         pila.push(v);
         while(!pila.isEmpty()){
             v=pila.pop();
-            result.add(v.getData());
+            result.addAll(v.getEdges());
             for(Edge<E> e: v.getEdges()){
                 if(!e.getVDestino().isVisited()){
                     e.getVDestino().setVisited(true);
@@ -259,7 +259,7 @@ public class GraphLA <E>{
         return vd.getDistancia();
     }
 
-    public List<E> caminoMinimo(E origen, E destino) {
+    public List<Edge<E>> caminoMinimo(E origen, E destino) {
         if (origen == null || destino == null) {
             throw new IllegalArgumentException();
         }
@@ -270,9 +270,9 @@ public class GraphLA <E>{
         }
         dijkstra(origen);
         Vertex<E> ant = vd;
-        List<E> lista = new LinkedList<>();
+        List<Edge<E>> lista = new LinkedList<>();
         while (ant != null) {
-            lista.add(ant.getData());
+            lista.addAll(ant.getEdges());
             ant = ant.getAntecesor();
             System.out.println(ant);
         }

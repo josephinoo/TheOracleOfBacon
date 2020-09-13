@@ -52,9 +52,10 @@ public class NumberBacon {
                             Vertex<String> v1 = new Vertex<>(actores[i]);
                             if (!v.equals(v1)) {
                                 Edge<String> e = new Edge<>(v, v1, pelicula);
+                                if(!v.getEdges().contains(e)){
                                 v.addEdge(e);
 
-                            }
+                            }}
                         }
 
                     }
