@@ -32,6 +32,7 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import theoracleofbacon.NumberBacon;
+import util.Edge;
 import util.Vertex;
 
 /**
@@ -61,7 +62,8 @@ public class MainController implements Initializable {
         entries.addAll(actores());
         autocompleteTextField(person1);
         autocompleteTextField(person2);
-        addEdges(3,vbDijkstra);
+       
+        
     }
 
     private void autocompleteTextField(TextField person) {
@@ -121,37 +123,59 @@ public class MainController implements Initializable {
         return actores;
     }
 
-    public void addEdges(int shape, VBox vBoxPane) {
-        for (int i = 0; i < shape; i++) {
-            StackPane stackRectangle = new StackPane();
-            Rectangle rectangle = new Rectangle(200, 50);
+   public void addEdges(List<Edge<String>> connection, VBox vBoxPane) {
+        int i=0;
+        for (Edge<String> edge: connection) {
+             StackPane stackRectangle2 = new StackPane();
+             if(i==0){
+            Rectangle rectangle2 = new Rectangle(200, 50);
+            rectangle2.setFill(Color.rgb(189, 253, 178));
+            Text textoOrigen= new Text(edge.getVOrigen().getData());
+             stackRectangle2.getChildren().addAll(rectangle2,textoOrigen);
+             vBoxPane.getChildren().add(stackRectangle2);
+             i++;
+            }
+             
+             
+          /// Primera Linea
             StackPane stackLine = new StackPane();
             Line line = new Line(100, 0, 100, 30);
             line.setStroke(Color.GRAY);
             line.setStrokeWidth(3);
-            stackLine.getChildren().addAll(line);
-            if (i % 2 == 0) {
-                rectangle.setFill(Color.rgb(189, 253, 178));
-                Text texto = new Text("was in");
-                texto.setFont(Font.font("Arial",FontWeight.BOLD,14));
-                stackLine.getChildren().add(texto);
-            } else {
-                rectangle.setFill(Color.rgb(172, 172, 253));
-                Text texto = new Text("with");
-                texto.setFont(Font.font("Arial",FontWeight.BOLD,14));
-
-                stackLine.getChildren().add(texto);
-            }
+            
+            Text textWasIn = new Text("was in");
+           textWasIn.setFont(Font.font("Arial",FontWeight.BOLD,14));
+            stackLine.getChildren().addAll(line,textWasIn);
+             vBoxPane.getChildren().add(stackLine);
+             /// Rectangle 1
+             StackPane stackRectangle = new StackPane();
+            Rectangle rectangle = new Rectangle(200, 50);
+           rectangle.setFill(Color.rgb(72, 172, 253));
             rectangle.setStroke(Color.BLACK);
             rectangle.setStrokeWidth(0.5);
+            Text textoMovie= new Text(edge.getMovie());
+            stackRectangle.getChildren().addAll(rectangle,textoMovie);
+           vBoxPane.getChildren().add(stackRectangle);
+          
+           //Linea 2
+           StackPane stackLine2 = new StackPane();
+           Text textWith = new Text("with");
+           textWith.setFont(Font.font("Arial",FontWeight.BOLD,14));
+           stackLine2.getChildren().addAll(line,textWith);
+           vBoxPane.getChildren().add(stackLine2);
+           // Rectangle2
+           StackPane stackRectangle3 = new StackPane();
+           Rectangle rectangle3 = new Rectangle(200, 50);
+           rectangle3.setFill(Color.rgb(189, 253, 178));
+            rectangle3.setStroke(Color.BLACK);
+            rectangle3.setStrokeWidth(0.5);
+            Text  textoDestino= new Text(edge.getVDestino().getData());
+            stackRectangle3.getChildren().addAll(rectangle,textoDestino);
+            vBoxPane.getChildren().addAll(stackRectangle3);
 
-            stackRectangle.getChildren().addAll(rectangle);
-            vBoxPane.getChildren().addAll(stackRectangle);
-
-            if (i < shape - 1) {
-                vBoxPane.getChildren().addAll(stackLine);
-            }
+           
 
         }
     }
+    
 }
