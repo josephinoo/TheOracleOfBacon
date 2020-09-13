@@ -21,6 +21,7 @@ import util.Vertex;
 public class NumberBacon {
     
     
+    
     public static GraphLA<String> graphBacon(){
         GraphLA<String> graphBacon= new GraphLA<>(false);
         FileInputStream inputStream = null;

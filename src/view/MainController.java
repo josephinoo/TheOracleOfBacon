@@ -5,12 +5,23 @@
  */
 package view;
 
+import util.AutoCompleteTextField;
 import java.net.URL;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.SortedSet;
+import java.util.TreeSet;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.geometry.Side;
+import javafx.scene.control.ContextMenu;
+import javafx.scene.control.CustomMenuItem;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
@@ -33,18 +44,78 @@ public class MainController implements Initializable {
     @FXML
     private TextField person2;
 
-  
+    private ContextMenu entriesPopup;
+    private final SortedSet<String> entries;
+
+    public MainController() {
+        entries = new TreeSet<>();
+        entriesPopup = new ContextMenu();
+    }
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-       
-     
-    }    
-    public List<String> actores(){
-    LinkedList<String> actores= new LinkedList<>();  
-    for(Vertex<String> actor:NumberBacon.graphBacon().getVertexes()){
-        actores.add(actor.getData());
+        entries.addAll(actores());
+        System.out.println(actores());
+        autocompleteTextField(person1);
+        autocompleteTextField(person2);
+
     }
-    return actores;
+
+    private void autocompleteTextField(TextField person) {
+        person.textProperty().addListener(
+                new ChangeListener<String>() {
+
+            @Override
+            public void changed(ObservableValue<? extends String> observableValue, String s, String s2) {
+
+                if (person.getText().length() == 0) {
+                    entriesPopup.hide();
+                } else {
+                    LinkedList<String> searchResult = new LinkedList<>();
+                    searchResult.addAll(entries.subSet(person.getText(), person.getText() + Character.MAX_VALUE));
+                    if (entries.size() > 0) {
+                        populatePopup(searchResult,person);
+                        if (!entriesPopup.isShowing()) {
+                            entriesPopup.show(person, Side.BOTTOM, 0, 0);
+                        }
+                    } else {
+                        entriesPopup.hide();
+                    }
+                }
+            }
+        }
+        );
+    }
+
+    private void populatePopup(List<String> searchResult,TextField person) {
+        List<CustomMenuItem> menuItems = new LinkedList<>();
+        // If you'd like more entries, modify this line.
+        int maxEntries = 10;
+        int count = Math.min(searchResult.size(), maxEntries);
+        for (int i = 0; i < count; i++) {
+            final String result = searchResult.get(i);
+            Label entryLabel = new Label(result);
+            CustomMenuItem item = new CustomMenuItem(entryLabel, true);
+            item.setOnAction(new EventHandler<ActionEvent>() {
+                @Override
+                public void handle(ActionEvent actionEvent) {
+                    person.setText(result);
+                    entriesPopup.hide();
+                }
+            });
+            menuItems.add(item);
+        }
+        entriesPopup.getItems().clear();
+        entriesPopup.getItems().addAll(menuItems);
+
+    }
+
+    public List<String> actores() {
+        LinkedList<String> actores = new LinkedList<>();
+        for (Vertex<String> actor : NumberBacon.graphBacon().getVertexes()) {
+            actores.add(actor.getData());
+        }
+        return actores;
     }
     public void addEdges(int shape ,VBox vBoxPane ){
       for(int i =0 ;i<shape;i++){
