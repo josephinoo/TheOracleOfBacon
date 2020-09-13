@@ -14,9 +14,9 @@ public class Vertex<E> {
     private LinkedList<Edge<E>> edges;
     private boolean visited;
     public int distancia;
-    private Vertex<E> antecesor;
+    private Edge<E> antecesor;
 
-    public Vertex<E> getAntecesor() {
+    public Edge<E> getAntecesor() {
         return antecesor;
     }
     
@@ -25,7 +25,7 @@ public class Vertex<E> {
         return edges.add(edge);
     }
 
-    public void setAntecesor(Vertex<E> antecesor) {
+    public void setAntecesor(Edge<E> antecesor) {
         this.antecesor = antecesor;
     }
 
