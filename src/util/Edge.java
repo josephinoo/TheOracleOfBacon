@@ -13,7 +13,8 @@ public class Edge <E>{
     private Vertex<E> vd;
     private E movie;
 
-    public Edge(Vertex<E> vo, Vertex<E> vd, E movie) {
+    public Edge(int peso,Vertex<E> vo, Vertex<E> vd, E movie) {
+        this.peso =peso;
         this.vo = vo;
         this.vd = vd;
         this.movie = movie;

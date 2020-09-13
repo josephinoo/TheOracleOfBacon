@@ -53,11 +53,11 @@ public class GraphLA <E>{
         Vertex<E> vs = searchVertex(src);
         Vertex<E> vd = searchVertex(dst);
         if(vs == null || vd == null) return false;
-        Edge<E> e = new Edge<>(vs,vd,movie);
+        Edge<E> e = new Edge<>(1,vs,vd,movie);
         if(!vs.getEdges().contains(e))
             vs.getEdges().add(e);
         if(!directed){
-            Edge<E> ei = new Edge<>(vd,vs,movie);
+            Edge<E> ei = new Edge<>(1,vd,vs,movie);
             if(!vd.getEdges().contains(ei)) {
                 vd.getEdges().add(ei);}    
             }
