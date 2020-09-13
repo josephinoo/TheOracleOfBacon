@@ -10,7 +10,9 @@ import java.io.FileInputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import util.Edge;
 import util.GraphLA;
+import util.Vertex;
 
 /**
  *
@@ -39,7 +41,24 @@ public class NumberBacon {
                         graphBacon.addVertex(actor);
                     }
                 }
-                addEdgesGraphBacon(graphBacon,actores,pelicula);
+                  for (Vertex<String> v : graphBacon.getVertexes()) {
+                    for (int i = 0; i < actores.length; i++) {
+                        if (actores[i].substring(0, 1).equals(" ")) {
+                            actores[i] = actores[i].substring(1);
+                        }
+
+                        if (!v.getData().equals(actores[i])) {
+                            Vertex<String> v1 = new Vertex<>(actores[i]);
+                            if (!v.equals(v1)) {
+                                Edge<String> e = new Edge<>(v, v1, pelicula);
+                                v.addEdge(e);
+
+                            }
+                        }
+
+                    }
+
+                }
             }
         }
         catch(Exception e){
@@ -49,14 +68,9 @@ public class NumberBacon {
         
      
 }
-    public static void addEdgesGraphBacon(GraphLA<String> graphBaconNumber,String[] actores,String movie){
-        int changeActor=1;
-        for(int i=1;i<actores.length;i++){
-               graphBaconNumber.addEdge(actores[i-1], actores[i], 1, movie);
-               if(i==actores.length){i=changeActor+1;}
-    }
+   
                
                
     }
     
-}
+

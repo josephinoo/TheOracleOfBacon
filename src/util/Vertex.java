@@ -19,6 +19,11 @@ public class Vertex<E> {
     public Vertex<E> getAntecesor() {
         return antecesor;
     }
+    
+    
+    public boolean addEdge(Edge<E> edge) {
+        return edges.add(edge);
+    }
 
     public void setAntecesor(Vertex<E> antecesor) {
         this.antecesor = antecesor;
