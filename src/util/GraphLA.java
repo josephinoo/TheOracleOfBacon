@@ -250,11 +250,9 @@ public class GraphLA<E> {
             dijkstra(origen);
         Vertex<E> ant = vd;
         List<Edge<E>> lista = new LinkedList<>();
-        System.out.println(tipo);
 
         while (ant.getAntecesor() != null) {
             Edge<E> edgeAnt = ant.getAntecesor();
-            System.out.println(edgeAnt);
             lista.add(edgeAnt);
             ant = edgeAnt.getVOrigen();
         }

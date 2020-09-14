@@ -5,7 +5,6 @@
  */
 package view;
 
-import util.AutoCompleteTextField;
 import java.net.URL;
 import java.util.LinkedList;
 import java.util.List;

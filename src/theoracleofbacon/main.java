@@ -30,12 +30,6 @@ public class main extends Application {
         
     public static void main(String[] args) {
         Application.launch(args);
-//        GraphLA<String> grafo = NumberBacon.getGraph();
-//        System.out.println(grafo.camino("Vin Diesel", "James Marsden","bfs"));
-//        System.out.println("\n ----------------------------- \n");
-//        System.out.println(grafo.camino("Vin Diesel", "James Marsden","dfs"));
-//        System.out.println("\n ----------------------------- \n");        
-//        System.out.println(grafo.camino("Vin Diesel", "James Marsden","dijkstra"));
 
     }
 }
