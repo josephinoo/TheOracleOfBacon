@@ -20,9 +20,20 @@ import util.Vertex;
  */
 public class NumberBacon {
 
-    public static GraphLA<String> graph;
-
-    public static GraphLA<String> graphBacon() {
+    private static GraphLA<String> graph;
+    
+    private NumberBacon(){
+        
+    }
+    
+    public static GraphLA<String> getGraph(){
+        if(graph!= null){
+            return graph;
+        }else{
+            return graphBacon();
+        }
+    } 
+    private static GraphLA<String> graphBacon() {
         graph = new GraphLA<>(false);
         FileInputStream inputStream = null;
         try {

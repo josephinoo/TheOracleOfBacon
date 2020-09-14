@@ -48,6 +48,10 @@ public class MainController implements Initializable {
     private TextField person2;
     @FXML
     private VBox vbDijkstra;
+    @FXML
+    private VBox vbBFS;
+    @FXML
+    private VBox vbDFS;
 
     private ContextMenu entriesPopup;
     private final SortedSet<String> entries;
@@ -116,7 +120,7 @@ public class MainController implements Initializable {
 
     public List<String> actores() {
         LinkedList<String> actores = new LinkedList<>();
-        for (Vertex<String> actor : NumberBacon.graphBacon().getVertexes()) {
+        for (Vertex<String> actor : NumberBacon.getGraph().getVertexes()) {
             actores.add(actor.getData());
         }
         return actores;
@@ -138,6 +142,7 @@ public class MainController implements Initializable {
             /// Primera Linea
             StackPane stackLine = new StackPane();
             Line line = new Line(100, 0, 100, 30);
+            
             line.setStroke(Color.GRAY);
             line.setStrokeWidth(3);
 
@@ -158,8 +163,9 @@ public class MainController implements Initializable {
             //Linea 2
             StackPane stackLine2 = new StackPane();
             Text textWith = new Text("with");
+            Line line2 = new Line(100, 0, 100, 30);
             textWith.setFont(Font.font("Arial", FontWeight.BOLD, 14));
-            stackLine2.getChildren().addAll(line, textWith);
+            stackLine2.getChildren().addAll(line2, textWith);
             vBoxPane.getChildren().add(stackLine2);
             // Rectangle2
             StackPane stackRectangle3 = new StackPane();
@@ -168,10 +174,28 @@ public class MainController implements Initializable {
             rectangle3.setStroke(Color.BLACK);
             rectangle3.setStrokeWidth(0.5);
             Text textoDestino = new Text(edge.getVDestino().getData());
-            stackRectangle3.getChildren().addAll(rectangle, textoDestino);
+            stackRectangle3.getChildren().addAll(rectangle3, textoDestino);
             vBoxPane.getChildren().addAll(stackRectangle3);
 
         }
+    }
+    
+    @FXML
+    public void showGraphs(){
+        vbDijkstra.getChildren().clear();
+        vbBFS.getChildren().clear();
+        vbDFS.getChildren().clear();
+
+        String origen = person1.getText();
+        String destino = person2.getText();
+        List<Edge<String>> dijkstra = NumberBacon.getGraph().camino(origen, destino, "dijkstra");
+        List<Edge<String>> bfs = NumberBacon.getGraph().camino(origen, destino, "bfs");
+        List<Edge<String>> dfs = NumberBacon.getGraph().camino(origen, destino, "dfs");
+        addEdges(dijkstra,vbDijkstra);
+        addEdges(dfs,vbDFS);
+        addEdges(bfs,vbBFS);
+        person1.clear();
+        person2.clear();
     }
 
 }
