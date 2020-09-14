@@ -129,73 +129,73 @@ public class MainController implements Initializable {
     public void addEdges(List<Edge<String>> connection, VBox vBoxPane) {
         int i = 0;
         for (Edge<String> edge : connection) {
-            StackPane stackRectangle2 = new StackPane();
             if (i == 0) {
-                Rectangle rectangle2 = new Rectangle(200, 50);
-                rectangle2.setFill(Color.rgb(189, 253, 178));
-                Text textoOrigen = new Text(edge.getVOrigen().getData());
-                stackRectangle2.getChildren().addAll(rectangle2, textoOrigen);
-                vBoxPane.getChildren().add(stackRectangle2);
+                crearRectangulo(edge.getVOrigen().getData(),vBoxPane,Color.rgb(189, 253, 178));
                 i++;
             }
-
             /// Primera Linea
-            StackPane stackLine = new StackPane();
-            Line line = new Line(100, 0, 100, 30);
-            
-            line.setStroke(Color.GRAY);
-            line.setStrokeWidth(3);
-
-            Text textWasIn = new Text("was in");
-            textWasIn.setFont(Font.font("Arial", FontWeight.BOLD, 14));
-            stackLine.getChildren().addAll(line, textWasIn);
-            vBoxPane.getChildren().add(stackLine);
+            anadirLinea("was in",vBoxPane);
             /// Rectangle 1
-            StackPane stackRectangle = new StackPane();
-            Rectangle rectangle = new Rectangle(200, 50);
-            rectangle.setFill(Color.rgb(72, 172, 253));
-            rectangle.setStroke(Color.BLACK);
-            rectangle.setStrokeWidth(0.5);
-            Text textoMovie = new Text(edge.getMovie());
-            stackRectangle.getChildren().addAll(rectangle, textoMovie);
-            vBoxPane.getChildren().add(stackRectangle);
-
+            crearRectangulo(edge.getMovie(),vBoxPane,Color.rgb(72, 172, 253));
             //Linea 2
-            StackPane stackLine2 = new StackPane();
-            Text textWith = new Text("with");
-            Line line2 = new Line(100, 0, 100, 30);
-            textWith.setFont(Font.font("Arial", FontWeight.BOLD, 14));
-            stackLine2.getChildren().addAll(line2, textWith);
-            vBoxPane.getChildren().add(stackLine2);
+            anadirLinea("with",vBoxPane);
             // Rectangle2
-            StackPane stackRectangle3 = new StackPane();
-            Rectangle rectangle3 = new Rectangle(200, 50);
-            rectangle3.setFill(Color.rgb(189, 253, 178));
-            rectangle3.setStroke(Color.BLACK);
-            rectangle3.setStrokeWidth(0.5);
-            Text textoDestino = new Text(edge.getVDestino().getData());
-            stackRectangle3.getChildren().addAll(rectangle3, textoDestino);
-            vBoxPane.getChildren().addAll(stackRectangle3);
-
+            crearRectangulo(edge.getVDestino().getData(),vBoxPane,Color.rgb(189, 253, 178));
         }
     }
     
-    @FXML
-    public void showGraphs(){
-        vbDijkstra.getChildren().clear();
-        vbBFS.getChildren().clear();
-        vbDFS.getChildren().clear();
+    private void anadirLinea(String text,VBox vBoxPane){
+        StackPane stackLine = new StackPane();
+        crearLinea(stackLine,"was in");
+        vBoxPane.getChildren().add(stackLine);
+    }
+    
+    private void crearRectangulo(String text,VBox vb,Color color){
+        StackPane stackRectangle = new StackPane();
+        Rectangle rectangle = new Rectangle(200, 50);
+        rectangle.setFill(color);
+        rectangle.setStroke(Color.BLACK);
+        rectangle.setStrokeWidth(0.5);
+        Text textoMovie = new Text(text);
+        stackRectangle.getChildren().addAll(rectangle, textoMovie);
+        vb.getChildren().add(stackRectangle);
+    }
+    
+    
+    private void crearLinea(StackPane stackLine,String text){
+        Line line = new Line(100, 0, 100, 30);
 
+        line.setStroke(Color.GRAY);
+        line.setStrokeWidth(3);
+
+        Text textWasIn = new Text(text);
+        textWasIn.setFont(Font.font("Arial", FontWeight.BOLD, 14));
+        stackLine.getChildren().addAll(line, textWasIn);
+    }
+
+    @FXML
+    public void showGraphs() {
+        clearVBoxes();
         String origen = person1.getText();
         String destino = person2.getText();
         List<Edge<String>> dijkstra = NumberBacon.getGraph().camino(origen, destino, "dijkstra");
         List<Edge<String>> bfs = NumberBacon.getGraph().camino(origen, destino, "bfs");
         List<Edge<String>> dfs = NumberBacon.getGraph().camino(origen, destino, "dfs");
-        addEdges(dijkstra,vbDijkstra);
-        addEdges(dfs,vbDFS);
-        addEdges(bfs,vbBFS);
+        addEdges(dijkstra, vbDijkstra);
+        addEdges(dfs, vbDFS);
+        addEdges(bfs, vbBFS);
+        clearTextFields();
+    }
+
+    private void clearTextFields() {
         person1.clear();
         person2.clear();
+    }
+
+    private void clearVBoxes() {
+        vbDijkstra.getChildren().clear();
+        vbBFS.getChildren().clear();
+        vbDFS.getChildren().clear();
     }
 
 }
