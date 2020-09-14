@@ -52,6 +52,12 @@ public class MainController implements Initializable {
     private VBox vbBFS;
     @FXML
     private VBox vbDFS;
+    @FXML
+    private Label tiempoDijkstra;
+    @FXML
+    private Label tiempoDFS;
+    @FXML
+    private Label tiempoBFS;
 
     private ContextMenu entriesPopup;
     private final SortedSet<String> entries;
@@ -130,27 +136,27 @@ public class MainController implements Initializable {
         int i = 0;
         for (Edge<String> edge : connection) {
             if (i == 0) {
-                crearRectangulo(edge.getVOrigen().getData(),vBoxPane,Color.rgb(189, 253, 178));
+                crearRectangulo(edge.getVOrigen().getData(), vBoxPane, Color.rgb(189, 253, 178));
                 i++;
             }
             /// Primera Linea
-            anadirLinea("was in",vBoxPane);
+            anadirLinea("was in", vBoxPane);
             /// Rectangle 1
-            crearRectangulo(edge.getMovie(),vBoxPane,Color.rgb(72, 172, 253));
+            crearRectangulo(edge.getMovie(), vBoxPane, Color.rgb(72, 172, 253));
             //Linea 2
-            anadirLinea("with",vBoxPane);
+            anadirLinea("with", vBoxPane);
             // Rectangle2
-            crearRectangulo(edge.getVDestino().getData(),vBoxPane,Color.rgb(189, 253, 178));
+            crearRectangulo(edge.getVDestino().getData(), vBoxPane, Color.rgb(189, 253, 178));
         }
     }
-    
-    private void anadirLinea(String text,VBox vBoxPane){
+
+    private void anadirLinea(String text, VBox vBoxPane) {
         StackPane stackLine = new StackPane();
-        crearLinea(stackLine,"was in");
+        crearLinea(stackLine, "was in");
         vBoxPane.getChildren().add(stackLine);
     }
-    
-    private void crearRectangulo(String text,VBox vb,Color color){
+
+    private void crearRectangulo(String text, VBox vb, Color color) {
         StackPane stackRectangle = new StackPane();
         Rectangle rectangle = new Rectangle(200, 50);
         rectangle.setFill(color);
@@ -160,9 +166,8 @@ public class MainController implements Initializable {
         stackRectangle.getChildren().addAll(rectangle, textoMovie);
         vb.getChildren().add(stackRectangle);
     }
-    
-    
-    private void crearLinea(StackPane stackLine,String text){
+
+    private void crearLinea(StackPane stackLine, String text) {
         Line line = new Line(100, 0, 100, 30);
 
         line.setStroke(Color.GRAY);
@@ -178,9 +183,20 @@ public class MainController implements Initializable {
         clearVBoxes();
         String origen = person1.getText();
         String destino = person2.getText();
+
+        long startDI = System.currentTimeMillis();
         List<Edge<String>> dijkstra = NumberBacon.getGraph().camino(origen, destino, "dijkstra");
+        long endDI = System.currentTimeMillis();
+        tiempoDijkstra.setText("Tiempo: " + String.valueOf(endDI - startDI) + "millis");
+        long startBFS = System.currentTimeMillis();
         List<Edge<String>> bfs = NumberBacon.getGraph().camino(origen, destino, "bfs");
+        long endBFS = System.currentTimeMillis();
+        tiempoBFS.setText("Tiempo: " + String.valueOf(endBFS - startBFS) + "millis");
+
+        long startDFS = System.currentTimeMillis();
         List<Edge<String>> dfs = NumberBacon.getGraph().camino(origen, destino, "dfs");
+        long endDFS = System.currentTimeMillis();
+        tiempoDFS.setText("Tiempo: " + String.valueOf(endDFS - startDFS) + "millis");
         addEdges(dijkstra, vbDijkstra);
         addEdges(dfs, vbDFS);
         addEdges(bfs, vbBFS);
@@ -188,6 +204,8 @@ public class MainController implements Initializable {
     }
 
     private void clearTextFields() {
+
+
         person1.clear();
         person2.clear();
     }

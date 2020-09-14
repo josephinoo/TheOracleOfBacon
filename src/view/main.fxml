@@ -9,6 +9,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
 <AnchorPane id="AnchorPane" prefHeight="600.0" prefWidth="1300.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.MainController">
    <children>
@@ -41,5 +42,15 @@
             <VBox fx:id="vbBFS" prefHeight="396.0" prefWidth="368.0" style="-fx-background-color: #FFFF;" />
          </content>
       </ScrollPane>
+      <Label fx:id="tiempoDijkstra" layoutX="80.0" layoutY="158.0" prefHeight="17.0" prefWidth="149.0" />
+      <Label layoutX="257.0" layoutY="150.0" prefHeight="25.0" prefWidth="191.0" text="Dijkstra" textFill="#353541">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Label>
+      <Label fx:id="tiempoDFS" layoutX="482.0" layoutY="158.0" prefHeight="17.0" prefWidth="149.0" />
+      <Label layoutX="701.0" layoutY="158.0" prefHeight="17.0" prefWidth="149.0" text="DFS" textFill="#353541" />
+      <Label layoutX="1112.0" layoutY="158.0" prefHeight="17.0" prefWidth="149.0" text="BFS" textFill="#353541" />
+      <Label fx:id="tiempoBFS" layoutX="893.0" layoutY="158.0" prefHeight="17.0" prefWidth="149.0" />
    </children>
 </AnchorPane>
