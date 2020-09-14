@@ -7,12 +7,10 @@ package theoracleofbacon;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.util.ArrayList;
-import java.util.List;
+import java.io.IOException;
 import java.util.Scanner;
-import util.Edge;
 import util.GraphLA;
-import util.Vertex;
+
 
 /**
  *
@@ -35,9 +33,7 @@ public class NumberBacon {
     } 
     private static GraphLA<String> graphBacon() {
         graph = new GraphLA<>(false);
-        FileInputStream inputStream = null;
-        try {
-            inputStream = new FileInputStream(new File("src/files/movies.csv"));
+        try(FileInputStream inputStream = new FileInputStream(new File("src/files/movies.csv"))) {
             Scanner sc = new Scanner(inputStream, "UTF-8");
             while (sc.hasNextLine()) {
                 String line = sc.nextLine();
@@ -49,12 +45,11 @@ public class NumberBacon {
                 }
                 for (int i = 0; i < actores.length; i++) {
                     for (int j = i + 1; j < actores.length; j++) {
-                        graph.addEdge(actores[i].strip(), actores[j].strip(), 1, pelicula);
-
+                        graph.addEdge(actores[i].strip(), actores[j].strip(), pelicula);
                     }
                 }
             }
-        } catch (Exception e) {
+        } catch (IOException e) {
             System.out.println(e.getMessage());
         }
         return graph;

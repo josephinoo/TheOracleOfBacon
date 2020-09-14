@@ -7,19 +7,16 @@ package util;
 
 import java.util.Collections;
 import java.util.Deque;
-import java.util.HashSet;
-import java.util.LinkedHashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.ListIterator;
 import java.util.NoSuchElementException;
 import java.util.PriorityQueue;
 import java.util.Queue;
-import java.util.Set;
 
 public class GraphLA<E> {
 
-    private LinkedList<Vertex<E>> vertexes;
+    private List<Vertex<E>> vertexes;
     private boolean directed;
 
     public GraphLA(boolean directed) {
@@ -51,7 +48,7 @@ public class GraphLA<E> {
         return vertexes.remove(vi);
     }
 
-    public boolean addEdge(E src, E dst, int peso, E movie) {
+    public boolean addEdge(E src, E dst, E movie) {
         if (src == null || dst == null) {
             return false;
         }
@@ -60,12 +57,12 @@ public class GraphLA<E> {
         if (vs == null || vd == null) {
             return false;
         }
-        Edge<E> e = new Edge<>( vs, vd, movie);
+        Edge<E> e = new Edge<>(vs, vd, movie);
         if (!vs.getEdges().contains(e)) {
             vs.getEdges().add(e);
         }
         if (!directed) {
-            Edge<E> ei = new Edge<>( vd, vs, movie);
+            Edge<E> ei = new Edge<>(vd, vs, movie);
             if (!vd.getEdges().contains(ei)) {
                 vd.getEdges().add(ei);
             }
@@ -110,7 +107,7 @@ public class GraphLA<E> {
             Vertex<E> test = new Vertex(data);
             if (!vertex.equals(test)) {
                 for (Edge<E> testE : vertex.getEdges()) {
-                    Edge<E> test2 = new Edge<E>(0, vertex, test);
+                    Edge<E> test2 = new Edge<>(0, vertex, test);
                     if (testE.equals(test2)) {
                         in++;
                     }
@@ -134,7 +131,7 @@ public class GraphLA<E> {
 
     @Override
     public String toString() {
-        return  showVertexes() + showArcos();
+        return showVertexes() + showArcos();
     }
 
     public String showVertexes() {
@@ -184,7 +181,7 @@ public class GraphLA<E> {
         Queue<Vertex<E>> cola = new LinkedList<>();
         v.setVisited(true);
         cola.offer(v);
-        do{
+        do {
             v = cola.poll();
             result.addAll(v.getEdges());
             for (Edge<E> e : v.getEdges()) {
@@ -194,8 +191,7 @@ public class GraphLA<E> {
                     cola.offer(e.getVDestino());
                 }
             }
-        }
-        while (!cola.isEmpty() && !v.getData().equals(destino));
+        } while (!cola.isEmpty() && !v.getData().equals(destino));
     }
 
     private void cleanVertexes() {
@@ -206,7 +202,7 @@ public class GraphLA<E> {
         }
     }
 
-    public void dfs(E origen,E destino) {
+    public void dfs(E origen, E destino) {
 
         Vertex<E> v = searchVertex(origen);
         if (v == null) {
@@ -215,39 +211,39 @@ public class GraphLA<E> {
         Deque<Vertex<E>> pila = new LinkedList<>();
         v.setVisited(true);
         pila.push(v);
-        do{
+        do {
             v = pila.pop();
             for (Edge<E> e : v.getEdges()) {
                 if (!e.getVDestino().isVisited()) {
-                    e.getVDestino().setVisited(true);        
+                    e.getVDestino().setVisited(true);
                     e.getVDestino().setAntecesor(e);
                     pila.push(e.getVDestino());
                 }
 
             }
-        }
-        while (!pila.isEmpty() && !v.getData().equals(destino));
+        } while (!pila.isEmpty() && !v.getData().equals(destino));
     }
-    
-    public void validateEntryNotNull(E origen, E destino){
+
+    public void validateEntryNotNull(E origen, E destino) {
         if (origen == null || destino == null) {
             throw new IllegalArgumentException();
         }
     }
-    
-    public List<Edge<E>> camino(E origen, E destino,String tipo){
-        validateEntryNotNull(origen,destino);
+
+    public List<Edge<E>> camino(E origen, E destino, String tipo) {
+        validateEntryNotNull(origen, destino);
         Vertex<E> vo = searchVertex(origen);
         Vertex<E> vd = searchVertex(destino);
         if (vo == null || vd == null) {
             throw new NoSuchElementException();
         }
-        if(tipo.equals("bfs"))
-            bfs(origen,destino);
-        else if(tipo.equals("dfs"))
-            dfs(origen,destino);
-        else
+        if (tipo.equals("bfs")) {
+            bfs(origen, destino);
+        } else if (tipo.equals("dfs")) {
+            dfs(origen, destino);
+        } else {
             dijkstra(origen);
+        }
         Vertex<E> ant = vd;
         List<Edge<E>> lista = new LinkedList<>();
 
@@ -260,7 +256,6 @@ public class GraphLA<E> {
         Collections.reverse(lista);
         return lista;
     }
-    
 
     public boolean isEmpty() {
         return vertexes.isEmpty();
@@ -274,37 +269,39 @@ public class GraphLA<E> {
         this.directed = directed;
     }
 
-    public LinkedList<Vertex<E>> getVertexes() {
+    public List<Vertex<E>> getVertexes() {
         return vertexes;
     }
 
-    public void setVertexes(LinkedList<Vertex<E>> vertexes) {
+    public void setVertexes(List<Vertex<E>> vertexes) {
         this.vertexes = vertexes;
     }
 
     private void dijkstra(E origen) {
-        if(origen == null){
+        if (origen == null) {
             throw new IllegalArgumentException();
         }
         Vertex<E> v = searchVertex(origen);
+        if (v == null) {
+            throw new IllegalArgumentException();
+        }
         v.setDistancia(0);
         PriorityQueue<Vertex<E>> cola = new PriorityQueue<>((Vertex<E> v1, Vertex<E> v2)
                 -> v1.getDistancia() - v2.getDistancia());
         cola.offer(v);
-        
+
         while (!cola.isEmpty()) {
             v = cola.poll();
             v.setVisited(true);
             for (Edge<E> e : v.getEdges()) {
-                if (!e.getVDestino().isVisited()) {
-                    if (v.getDistancia() + 1 < e.getVDestino().getDistancia()) {
-                        e.getVDestino().setDistancia(v.getDistancia() + 1);
-                        e.getVDestino().setAntecesor(e);
-                        cola.offer(e.getVDestino());
-                    }
+                if (!e.getVDestino().isVisited() && v.getDistancia() + 1 < e.getVDestino().getDistancia()) {
+                    e.getVDestino().setDistancia(v.getDistancia() + 1);
+                    e.getVDestino().setAntecesor(e);
+                    cola.offer(e.getVDestino());
+
                 }
             }
         }
-        
+
     }
 }

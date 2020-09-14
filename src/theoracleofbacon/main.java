@@ -12,12 +12,11 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import util.GraphLA;
 /**
  *
  * @author soyjosephavila
  */
-public class main extends Application {
+public class Main extends Application {
 
     public void start(Stage primaryStage) throws IOException {
         
