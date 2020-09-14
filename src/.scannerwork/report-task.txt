@@ -2,5 +2,5 @@ projectKey=GrupoProyecto13:TheOracleOfBacon
 serverUrl=http://200.9.176.59:9000
 serverVersion=7.7.0.23042
 dashboardUrl=http://200.9.176.59:9000/dashboard?id=GrupoProyecto13%3ATheOracleOfBacon
-ceTaskId=AXSK0z-22njepCnyV4pb
-ceTaskUrl=http://200.9.176.59:9000/api/ce/task?id=AXSK0z-22njepCnyV4pb
+ceTaskId=AXSOVLhv2njepCnyV4pt
+ceTaskUrl=http://200.9.176.59:9000/api/ce/task?id=AXSOVLhv2njepCnyV4pt

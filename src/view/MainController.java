@@ -86,7 +86,7 @@ public class MainController implements Initializable {
                 } else {
                     LinkedList<String> searchResult = new LinkedList<>();
                     searchResult.addAll(entries.subSet(person.getText(), person.getText() + Character.MAX_VALUE));
-                    if (entries.size() > 0) {
+                    if (!entries.isEmpty()) {
                         populatePopup(searchResult, person);
                         if (!entriesPopup.isShowing()) {
                             entriesPopup.show(person, Side.BOTTOM, 0, 0);
@@ -151,7 +151,7 @@ public class MainController implements Initializable {
 
     private void anadirLinea(String text, VBox vBoxPane) {
         StackPane stackLine = new StackPane();
-        crearLinea(stackLine, "was in");
+        crearLinea(stackLine, text);
         vBoxPane.getChildren().add(stackLine);
     }
 
@@ -186,21 +186,26 @@ public class MainController implements Initializable {
         long startDI = System.currentTimeMillis();
         List<Edge<String>> dijkstra = NumberBacon.getGraph().camino(origen, destino, "dijkstra");
         long endDI = System.currentTimeMillis();
-        tiempoDijkstra.setText("Tiempo: " + String.valueOf(endDI - startDI) + "millis");
+        tiempoDijkstra.setText(time(startDI,endDI));
         long startBFS = System.currentTimeMillis();
         List<Edge<String>> bfs = NumberBacon.getGraph().camino(origen, destino, "bfs");
         long endBFS = System.currentTimeMillis();
-        tiempoBFS.setText("Tiempo: " + String.valueOf(endBFS - startBFS) + "millis");
+        tiempoBFS.setText(time(startBFS,endBFS));
 
         long startDFS = System.currentTimeMillis();
         List<Edge<String>> dfs = NumberBacon.getGraph().camino(origen, destino, "dfs");
         long endDFS = System.currentTimeMillis();
-        tiempoDFS.setText("Tiempo: " + String.valueOf(endDFS - startDFS) + "millis");
+        tiempoDFS.setText(time(startDFS,endDFS));
         addEdges(dijkstra, vbDijkstra);
         addEdges(dfs, vbDFS);
         addEdges(bfs, vbBFS);
         clearTextFields();
     }
+    
+    private String time(long start, long end){
+    return "Tiempo: " + String.valueOf(end-start) + "millis";
+    }
+   
 
     private void clearTextFields() {
 
