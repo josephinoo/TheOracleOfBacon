@@ -13,7 +13,7 @@ public class Vertex<E> {
     private E data;
     private LinkedList<Edge<E>> edges;
     private boolean visited;
-    public int distancia;
+    private int distancia;
     private Edge<E> antecesor;
 
     public Edge<E> getAntecesor() {
@@ -70,8 +70,15 @@ public class Vertex<E> {
     @Override
     public int hashCode() {
         int hash = 7;
+        hash = 19 * hash + Objects.hashCode(this.data);
+        hash = 19 * hash + Objects.hashCode(this.edges);
+        hash = 19 * hash + (this.visited ? 1 : 0);
+        hash = 19 * hash + this.distancia;
+        hash = 19 * hash + Objects.hashCode(this.antecesor);
         return hash;
     }
+
+
 
     @Override
     public boolean equals(Object obj) {

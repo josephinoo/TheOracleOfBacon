@@ -16,7 +16,7 @@ import javafx.stage.Stage;
  *
  * @author soyjosephavila
  */
-public class Main extends Application {
+public class main extends Application {
 
     public void start(Stage primaryStage) throws IOException {
         
