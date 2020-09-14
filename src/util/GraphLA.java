@@ -60,12 +60,12 @@ public class GraphLA<E> {
         if (vs == null || vd == null) {
             return false;
         }
-        Edge<E> e = new Edge<>(1, vs, vd, movie);
+        Edge<E> e = new Edge<>( vs, vd, movie);
         if (!vs.getEdges().contains(e)) {
             vs.getEdges().add(e);
         }
         if (!directed) {
-            Edge<E> ei = new Edge<>(1, vd, vs, movie);
+            Edge<E> ei = new Edge<>( vd, vs, movie);
             if (!vd.getEdges().contains(ei)) {
                 vd.getEdges().add(ei);
             }
@@ -134,7 +134,7 @@ public class GraphLA<E> {
 
     @Override
     public String toString() {
-        return showVertexes() + "  " + showArcos();
+        return  showArcos();
     }
 
     public String showVertexes() {
@@ -162,7 +162,7 @@ public class GraphLA<E> {
                 result.append(edge.getVDestino().getData());
                 result.append(" peso:");
                 result.append(edge.getPeso());
-                result.append("),");
+                result.append("), \n");
 
             }
         }
@@ -289,6 +289,7 @@ public class GraphLA<E> {
         List<Edge<E>> lista = new LinkedList<>();
         while (ant.getAntecesor() != null) {
             Edge<E> edgeAnt = ant.getAntecesor();
+            System.out.println(edgeAnt);
             lista.add(edgeAnt);
             ant = edgeAnt.getVOrigen();
         }
@@ -297,32 +298,25 @@ public class GraphLA<E> {
     }
 
     private void dijkstra(E origen) {
-        if (origen != null) {
-            cleanVertexes();
-            Vertex<E> vo = searchVertex(origen);
-            if (vo == null) {
-                throw new NoSuchElementException();
-
-            }
-            PriorityQueue<Vertex<E>> cola = new PriorityQueue<>((Vertex<E> v1, Vertex<E> v2) -> v1.getDistancia() + v2.getDistancia());
-            vo.setDistancia(0);
-            cola.offer(vo);
-            while (!cola.isEmpty()) {
-                Vertex<E> vertex = cola.poll();
-                vertex.setVisited(true);
-                for (Edge<E> edge : vertex.getEdges()) {
-                    Vertex<E> dest = edge.getVDestino();
-                    if (!dest.isVisited() && dest.getDistancia() > edge.getPeso() + vertex.getDistancia()) {
-                        dest.setDistancia(edge.getPeso() + vertex.getDistancia());
-                        dest.setAntecesor(edge);
-                        System.out.println(edge);
-                        cola.offer(dest);
-
+        Vertex<E> v = searchVertex(origen);
+        v.setDistancia(0);
+        PriorityQueue<Vertex<E>> cola = new PriorityQueue<>((Vertex<E> v1, Vertex<E> v2)
+                -> v1.getDistancia() - v2.getDistancia());
+        cola.offer(v);
+        
+        while (!cola.isEmpty()) {
+            v = cola.poll();
+            v.setVisited(true);
+            for (Edge<E> e : v.getEdges()) {
+                if (!e.getVDestino().isVisited()) {
+                    if (v.getDistancia() + 1 < e.getVDestino().getDistancia()) {
+                        e.getVDestino().setDistancia(v.getDistancia() + 1);
+                        e.getVDestino().setAntecesor(e);
+                        cola.offer(e.getVDestino());
                     }
-
                 }
-
             }
         }
+        
     }
 }

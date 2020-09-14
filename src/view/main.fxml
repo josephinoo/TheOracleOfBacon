@@ -11,11 +11,10 @@
 
 <AnchorPane id="AnchorPane" prefHeight="600.0" prefWidth="1300.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.MainController">
    <children>
-      <VBox fx:id="vbDijkstra" layoutX="51.0" layoutY="196.0" prefHeight="396.0" prefWidth="368.0" style="-fx-background-color: #FFFF;" />
       <Pane layoutX="-4.0" layoutY="-11.0" prefHeight="156.0" prefWidth="1306.0" style="-fx-background-color: #353541;">
          <children>
             <Label layoutX="598.0" layoutY="52.0" scaleX="4.0" scaleY="4.0" text="The Oracle of Bacon" textFill="WHITE" />
-            <Button layoutX="881.0" layoutY="111.0" mnemonicParsing="false" text="Find" />
+            <Button fx:id="btnFind" layoutX="881.0" layoutY="111.0" mnemonicParsing="false" onAction="#showGraph" text="Find" />
             <Label layoutX="633.0" layoutY="118.0" scaleX="2.4" scaleY="2.4" text="to" textFill="WHITE" />
             <ImageView fitHeight="135.0" fitWidth="126.0" layoutX="14.0" layoutY="11.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -26,6 +25,7 @@
             <TextField fx:id="person2" layoutX="696.0" layoutY="114.0" style="-fx-background-color: #FFFFFF;" />
          </children>
       </Pane>
+      <VBox fx:id="vbDijkstra" layoutX="51.0" layoutY="196.0" prefHeight="396.0" prefWidth="368.0" style="-fx-background-color: #FFFF;" />
       <VBox fx:id="vbBFS" layoutX="476.0" layoutY="196.0" prefHeight="396.0" prefWidth="368.0" style="-fx-background-color: #FFFF;" />
       <VBox fx:id="vbDFS" layoutX="898.0" layoutY="196.0" prefHeight="396.0" prefWidth="368.0" style="-fx-background-color: #FFFF;" />
    </children>

@@ -19,60 +19,35 @@ import util.Vertex;
  * @author soyjosephavila
  */
 public class NumberBacon {
-    
-    
-    
-    public static GraphLA<String> graphBacon(){
-        GraphLA<String> graphBacon= new GraphLA<>(false);
+
+    public static GraphLA<String> graph;
+
+    public static GraphLA<String> graphBacon() {
+        graph = new GraphLA<>(false);
         FileInputStream inputStream = null;
         try {
             inputStream = new FileInputStream(new File("src/files/movies.csv"));
             Scanner sc = new Scanner(inputStream, "UTF-8");
             while (sc.hasNextLine()) {
                 String line = sc.nextLine();
-                String[] cadena=line.split(",");
-                String pelicula=cadena[0];
-                String[] actores=cadena[1].split("-");
-                for(String actor:actores){
-   
-                    if(actor.substring(0, 1).equals(" ")){
-                        graphBacon.addVertex(actor.substring(1));  
-                    }
-                    else{
-                        graphBacon.addVertex(actor);
-                    }
+                String[] cadena = line.split(",");
+                String pelicula = cadena[0];
+                String[] actores = cadena[1].split("-");
+                for (String actor : actores) {
+                    graph.addVertex(actor.strip());
                 }
-                  for (Vertex<String> v : graphBacon.getVertexes()) {
-                    for (int i = 0; i < actores.length; i++) {
-                        if (actores[i].substring(0, 1).equals(" ")) {
-                            actores[i] = actores[i].substring(1);
-                        }
-
-                        if (!v.getData().equals(actores[i])) {
-                            Vertex<String> v1 = new Vertex<>(actores[i]);
-                           
-                                Edge<String> e = new Edge<>(1,v, v1, pelicula);
-                                if(!v.getEdges().contains(e)){
-                                v.addEdge(e);
-
-                            }
-                        }
+                for (int i = 0; i < actores.length; i++) {
+                    for (int j = i + 1; j < actores.length; j++) {
+                        graph.addEdge(actores[i].strip(), actores[j].strip(), 1, pelicula);
 
                     }
-
                 }
             }
-        }
-        catch(Exception e){
+        } catch (Exception e) {
             System.out.println(e.getMessage());
         }
-         return graphBacon;
-        
-     
-}
-   
-               
-               
-    }
-    
+        return graph;
 
+    }
+
+}

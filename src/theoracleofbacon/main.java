@@ -17,19 +17,19 @@ import util.GraphLA;
  *
  * @author soyjosephavila
  */
-public class main /*extends Application*/ {
+public class main extends Application {
 
-//    public void start(Stage primaryStage) throws IOException {
-//        
-//        FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/main.fxml"));
-//        Parent root = loader.load();
-//        Scene scene = new Scene (root);
-//        primaryStage.setScene(scene);
-//        primaryStage.show();
-//    }
-//        
+    public void start(Stage primaryStage) throws IOException {
+        
+        /*FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/main.fxml"));
+        Parent root = loader.load();
+        Scene scene = new Scene (root);
+        primaryStage.setScene(scene);
+        primaryStage.show();*/
+    }
+        
     public static void main(String[] args) {
-//        Application.launch(args);
+        //Application.launch(args);
         GraphLA<String> grafo = NumberBacon.graphBacon();
         System.out.println(grafo.caminoMinimo("Vin Diesel", "James Marsden"));
     }
