@@ -172,7 +172,6 @@ public class GraphLA<E> {
     }
 
     public void bfs(E origen, E destino) {
-        cleanVertexes();
 
         List<Edge<E>> result = new LinkedList<>();
         if (origen == null) {
@@ -202,11 +201,12 @@ public class GraphLA<E> {
     private void cleanVertexes() {
         for (Vertex<E> v : vertexes) {
             v.setVisited(false);
+            v.setDistancia(Integer.MAX_VALUE);
+            v.setAntecesor(null);
         }
     }
 
     public void dfs(E origen,E destino) {
-        cleanVertexes();
 
         Vertex<E> v = searchVertex(origen);
         if (v == null) {
@@ -258,6 +258,7 @@ public class GraphLA<E> {
             lista.add(edgeAnt);
             ant = edgeAnt.getVOrigen();
         }
+        cleanVertexes();
         Collections.reverse(lista);
         return lista;
     }
@@ -287,7 +288,6 @@ public class GraphLA<E> {
         if(origen == null){
             throw new IllegalArgumentException();
         }
-        cleanVertexes();
         Vertex<E> v = searchVertex(origen);
         v.setDistancia(0);
         PriorityQueue<Vertex<E>> cola = new PriorityQueue<>((Vertex<E> v1, Vertex<E> v2)
