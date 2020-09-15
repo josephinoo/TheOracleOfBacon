@@ -57,6 +57,13 @@ public class MainController implements Initializable {
     private Label tiempoDFS;
     @FXML
     private Label tiempoBFS;
+    @FXML
+    private Label numBaconD;
+    @FXML
+    private Label numBaconDFS;
+     @FXML
+    private Label numBaconBFS;
+    
 
     private ContextMenu entriesPopup;
     private final SortedSet<String> entries;
@@ -185,15 +192,18 @@ public class MainController implements Initializable {
 
         long startDI = System.currentTimeMillis();
         List<Edge<String>> dijkstra = NumberBacon.getGraph().camino(origen, destino, "dijkstra");
+        numBaconD.setText("NumBacon: "+String.valueOf(dijkstra.size()));
         long endDI = System.currentTimeMillis();
         tiempoDijkstra.setText(time(startDI,endDI));
         long startBFS = System.currentTimeMillis();
         List<Edge<String>> bfs = NumberBacon.getGraph().camino(origen, destino, "bfs");
+        numBaconBFS.setText("NumBacon: "+String.valueOf(bfs.size()));
         long endBFS = System.currentTimeMillis();
         tiempoBFS.setText(time(startBFS,endBFS));
 
         long startDFS = System.currentTimeMillis();
         List<Edge<String>> dfs = NumberBacon.getGraph().camino(origen, destino, "dfs");
+        numBaconDFS.setText("NumBacon: "+String.valueOf(dfs.size()));
         long endDFS = System.currentTimeMillis();
         tiempoDFS.setText(time(startDFS,endDFS));
         addEdges(dijkstra, vbDijkstra);

@@ -52,5 +52,8 @@
       <Label layoutX="701.0" layoutY="158.0" prefHeight="17.0" prefWidth="149.0" text="DFS" textFill="#353541" />
       <Label layoutX="1112.0" layoutY="158.0" prefHeight="17.0" prefWidth="149.0" text="BFS" textFill="#353541" />
       <Label fx:id="tiempoBFS" layoutX="893.0" layoutY="158.0" prefHeight="17.0" prefWidth="149.0" />
+      <Label fx:id="numBaconD" layoutX="362.0" layoutY="154.0" prefHeight="17.0" prefWidth="80.0" />
+      <Label fx:id="numBaconDFS" layoutX="760.0" layoutY="154.0" prefHeight="17.0" prefWidth="80.0" />
+      <Label fx:id="numBaconBFS" layoutX="1181.0" layoutY="158.0" prefHeight="17.0" prefWidth="80.0" />
    </children>
 </AnchorPane>
